@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullah | Frontend & AI Developer</title>
+
+<style>
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+html { scroll-behavior: smooth; }
+body {
+  background: linear-gradient(135deg,#0b0c18,#1a1b2c,#0b0c18);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  color: #e0e0e0;
+  line-height: 1.6;
+  overflow-x:hidden;
+}
+
+/* Gradient Animation */
+@keyframes gradientBG {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* Loader */
+#loader {
+  position: fixed; inset:0;
+  background: #0b0c18;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  z-index:9999;
+}
+.spinner {
+  width:50px; height:50px;
+  border:5px solid #222; border-top:5px solid #00ffff; border-radius:50%;
+  animation: spin 1s linear infinite;
+  margin-bottom:15px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Header */
+header {
+  text-align:center;
+  padding: 100px 20px;
+  margin:20px auto;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 25px;
+  box-shadow: 0 0 50px rgba(0,255,255,0.3);
+  position: relative;
+}
+
+/* Profile Image */
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid #00ffff;
+  padding: 5px;
+  box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
+  object-fit: cover;
+  margin: 0 auto 20px auto;
+  animation: float 4s ease-in-out infinite, pulseBorder 2s infinite alternate;
+}
+@keyframes float {
+  0%,100%{ transform: translateY(0);}
+  50%{ transform: translateY(-15px);}
+}
+@keyframes pulseBorder {
+  0%,100%{ box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff; }
+  50%{ box-shadow: 0 0 50px #00ffff, 0 0 100px #ff00ff; }
+}
+
+/* Animated Intro Text */
+.intro-text {
+  font-size: 1.5rem;
+  color: #00ffff;
+  margin-top: 10px;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+  opacity: 0;
+  animation: fadeInUp 2s forwards;
+  animation-delay: 1s;
+}
+@keyframes fadeInUp {
+  0% { opacity:0; transform: translateY(30px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+
+/* Navigation */
+nav {
+  position: sticky; top:0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+  padding:12px;
+  text-align:center;
+  z-index:100;
+}
+nav a {
+  color:#fff;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold;
+  text-shadow:0 0 6px #00ffff;
+  transition:0.3s;
+}
+nav a:hover {
+  color:#ff00ff;
+  text-shadow:0 0 12px #ff00ff;
+}
+
+/* Sections */
+section {
+  max-width:1000px;
+  margin:40px auto;
+  padding:60px 30px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(15px);
+  border-radius:25px;
+  box-shadow: 0 0 40px rgba(0,255,255,0.2);
+  opacity:0;
+  transform: translateY(60px);
+  transition: all 1s ease;
+}
+section.show { opacity:1; transform: translateY(0); }
+
+h2 {
+  color:#00ffff;
+  text-align:center;
+  margin-bottom:20px;
+  text-shadow:0 0 10px #00ffff;
+}
+
+/* Skills */
+.skills span {
+  display:inline-block;
+  background: rgba(0,255,255,0.1);
+  color:#ffffff;
+  border:1px solid #00ffff;
+  padding:10px 18px;
+  margin:6px;
+  border-radius:30px;
+  font-size: medium;
+  font-weight:bold;
+  text-shadow:0 0 5px #fc0cc8;
+  transition:0.3s;
+}
+.skills span:hover {
+  background:#00ffff;
+  color:#0b0c18;
+  transform:scale(1.1);
+  box-shadow:0 0 15px #00ffff;
+}
+.about p {
+    font-size:10px;
+}
+/* Projects */
+.projects {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #00ffff;
+  border-radius: 25px;
+  padding:20px;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:0 0 30px rgba(0,255,255,0.2);
+  transition:0.4s;
+}
+.card img {
+  width:100%;
+  border-radius:15px;
+  margin-bottom:15px;
+  transition: transform 0.6s, box-shadow 0.6s;
+}
+.card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow:0 0 50px #ff00ff,0 0 70px #00ffff;
+}
+.card:hover img { transform:scale(1.1); }
+
+/* Floating Social Icons (Images) */
+.floating-social {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 999;
+}
+.floating-social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(0,255,255,0.1);
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+  transition: all 0.3s ease;
+  animation: neonPulse 2s infinite alternate;
+  overflow: hidden;
+}
+.floating-social a img {
+  width: 100%;   /* Make image fill the circle */
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;  /* Ensure fully circular */
+  transition: transform 0.3s;
+}
+.floating-social a:hover img {
+  transform: scale(1.2);
+}
+@keyframes neonPulse {
+  0%, 100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff; }
+  50% { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
+}
+@media(max-width: 768px) { .floating-social { display: none; } }
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:30px;
+  color:#f5f7f7;
+  text-shadow:0 0 6px #7ddce1;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(5px);
+  margin-top:40px;
+  border-radius:10px;
+}
+
+
+/* Media Queries */
+@media(max-width:600px){
+  header h1{ font-size:2.5rem; }
+  .profile-img{ width:150px; height:150px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="spinner"></div>
+  <p>Loading Portfolio...</p>
+</div>
+
+<!-- Floating Social Icons (Images) -->
+<div class="floating-social">
+  <a href="https://facebook.com/" target="_blank">
+    <img src="fff.jpg" alt="Facebook" />
+  </a>
+  <a href="https://wa.me/01020416855" target="_blank">
+    <img src="w3.jpg" alt="WhatsApp" />
+  </a>
+  <a href="https://discord.com/" target="_blank">
+    <img src="ds.jpg" alt="Discord" />
+  </a>
+  <a href="mailto:abdullah@email.com" target="_blank">
+    <img src="m.jpg" alt="Gmail" />
+  </a>
+  <a href="https://github.com/AbdullahRadwan" target="_blank">
+    <img src="gi.jpg" alt="GitHub" />
+  </a>
+</div>
+
+<header>
+  <img class="profile-img" src="yyyy.jpg" alt="Abdullah Profile">
+  <h1>Hello, I’m Abdullah Esmail Radwan</h1>
+  <p class="intro-text">Frontend & AI Developer | HTML • CSS • JS • React • ML</p>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p class="spic">Frontend & AI Developer building modern, responsive web apps and AI-powered solutions with futuristic UI and smooth animations.</p>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>React</span>
+    <span>Git</span><span>Responsive Design</span><span>Machine Learning</span>
+    <span>AI & Neural Networks</span><span>Python</span>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <a class="card" href="#" target="_blank">
+      <img src="ggg.png" alt="Dashboard Project">
+      <h3>Social Media Dashboard</h3>
+      <p>Responsive dashboard with modern UI and animations.</p>
+    </a>
+    <a class="card" href="#" target="_blank">
+      <img src="https://via.placeholder.com/400x200" alt="Restaurant Website">
+      <h3>Restaurant Website</h3>
+      <p>Interactive restaurant website with booking system.</p>
+    </a>
+    <a class="card" href="#" target="_blank">
+      <img src="https://via.placeholder.com/400x200" alt="Portfolio">
+      <h3>Portfolio Website</h3>
+      <p>Personal portfolio with animations and futuristic design.</p>
+    </a>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: abdullaesmail132@gmail.com</p>
+  <p>GitHub: github.com/AbdullahRadwan</p>
+  <p>LinkedIn: abdullah-esmail-50bba2216/</p>
+</section>
+
+<footer>© 2026 Abdullah Esmail Gaduted | Frontend & AI Developer</footer>
+
+<script>
+// Loader
+window.addEventListener("load", ()=>{ document.getElementById("loader").style.display="none"; });
+
+// Scroll animation
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("show"); });
+},{threshold:0.2});
+sections.forEach(section=>observer.observe(section));
+</script>
+
+</body>
+</html>

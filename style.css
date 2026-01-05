@@ -1,0 +1,15 @@
+p{
+    color: brown;
+    background-color: aquamarine;
+}
+.l1{
+    background:greenyellow;
+    font-size: 50px;
+}
+.mm{
+    list-style-type: none;
+    margin:0px 0px 0px 50px;
+}
+li{
+    text-decoration: line-through;
+}
